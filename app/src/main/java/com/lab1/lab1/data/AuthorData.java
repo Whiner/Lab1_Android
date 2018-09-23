@@ -47,4 +47,13 @@ public class AuthorData {
     public void setGroup(String group) {
         this.group = group;
     }
+
+    @Override
+    public String toString() {
+        return "Автор " +
+                surname + " " +
+                name +
+                "\nВариант №" + variant +
+                "\nГруппа " + group;
+    }
 }
