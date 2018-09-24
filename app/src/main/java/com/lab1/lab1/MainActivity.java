@@ -1,18 +1,21 @@
 package com.lab1.lab1;
 
+import android.app.AlertDialog;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lab1.lab1.data.AuthorData;
 
 public class MainActivity extends AppCompatActivity {
-
 
 
     @Override
@@ -26,13 +29,56 @@ public class MainActivity extends AppCompatActivity {
         AuthorData authorData = new AuthorData("Саша", "Шиленко", 13, "ИС-16");
         setStudentInfo(authorData);
         setOnActionButtons();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem secondItem = menu.findItem(R.id.second);
+        secondItem.setEnabled(false);
+        Button unlockMenuItemButton = findViewById(R.id.unlock2MenuItemButton);
+        unlockMenuItemButton.setOnClickListener(event -> {
+            if (!secondItem.isEnabled()) {
+                secondItem.setEnabled(true);
+                Toast.makeText(this, "Разблокирован 2 пункт меню", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        MenuItem thirdItem = menu.findItem(R.id.third);
+        unlockMenuItemButton = findViewById(R.id.unlock3MenuItemButton);
+        unlockMenuItemButton.setOnClickListener(event -> {
+            if (!thirdItem.isEnabled()) {
+                thirdItem.setEnabled(true);
+                Toast.makeText(this, "Разблокирован 3 пункт меню", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        setOnItemMenuActions(menu);
+
         return true;
     }
+
+    private void setOnItemMenuActions(Menu menu) {
+        MenuItem item = menu.findItem(R.id.second);
+        item.setOnMenuItemClickListener(event -> {
+            Log.d("Выбран", "Выбран 2 пункт меню");
+            return true;
+        });
+
+        item = menu.findItem(R.id.third);
+        item.setOnMenuItemClickListener(event -> {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setMessage("Выбран 3 пункт меню")
+                    .setTitle("Выбор")
+                    .setPositiveButton("ОК", (dialogInterface, i) -> dialogInterface.cancel())
+                    .create();
+            dialog.show();
+            return true;
+        });
+
+    }
+
 
     private void setStudentInfo(AuthorData authorData) {
         TextView textView = findViewById(R.id.studentInfoTV);
@@ -60,5 +106,9 @@ public class MainActivity extends AppCompatActivity {
     public void returnLayout(View view) {
         setContentView(R.layout.activity_main);
         init();
+    }
+
+    public void firstOnClick(MenuItem item) {
+        Toast.makeText(this, "Выбран 1 пункт меню", Toast.LENGTH_SHORT).show();
     }
 }

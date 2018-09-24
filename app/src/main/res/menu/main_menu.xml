@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title = "Первый"
         android:id="@+id/first"
-    />
+        android:title="Первый"
+        android:onClick="firstOnClick" />
     <item
-        android:title = "Второй"
         android:id="@+id/second"
-    />
+        android:title="Второй"
+        android:enabled="false" />
     <item
-        android:title = "Третий"
         android:id="@+id/third"
-    />
+        android:title="Третий"
+        android:enabled="false" />
     <item
-        android:title = "Четвертый"
         android:id="@+id/fourth"
-    />
+        android:title="Четвертый" />
+    <item
+        android:id="@+id/fifth"
+        android:title="Пятый" />
 
 
 </menu>
