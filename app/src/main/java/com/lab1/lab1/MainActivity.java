@@ -17,7 +17,6 @@ import com.lab1.lab1.data.AuthorData;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +54,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setOnItemMenuActions(menu);
-
+        setDynamicsCreateToButton4(menu);
         return true;
+    }
+
+    private int last = 0;
+
+    private void setDynamicsCreateToButton4(Menu menu) {
+
+        findViewById(R.id.button4).setOnClickListener(event -> {
+            String name = "NewButton" + last++;
+            Toast.makeText(this, "Создана кнопка " + name, Toast.LENGTH_SHORT).show();
+            MenuItem add = menu.add(name);
+            add.setOnMenuItemClickListener(new DinamicButtonsListener(add, this));
+
+        });
     }
 
     private void setOnItemMenuActions(Menu menu) {
@@ -79,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void setStudentInfo(AuthorData authorData) {
         TextView textView = findViewById(R.id.studentInfoTV);
         textView.setText(authorData.toString());
     }
 
     private void setOnActionButtons() {
+
         Button landscapeButton = findViewById(R.id.landscapeModeBT);
         landscapeButton.setOnClickListener(event -> {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -97,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.showText).setOnClickListener(new ShowText(this));
     }
-
 
     public void changeLayout(View view) {
         setContentView(R.layout.second);

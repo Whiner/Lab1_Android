@@ -8,7 +8,6 @@ import android.widget.Toast;
 public class ShowText implements View.OnClickListener {
     private MainActivity activity;
 
-
     public ShowText(MainActivity activity) {
         this.activity = activity;
     }
